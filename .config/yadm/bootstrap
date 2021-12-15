@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+
+# Based on pwyde's dotfiles (https://github.com/pwyde/dotfiles)
+
+# Variables for dotfiles repo
+git_host="github.com"
+git_user="shrijitsingh99"
+git_repo="dotfiles"
+git_url="https://${git_host}/${git_user}/"
+
+# Set system type
+system_type=$(uname -s)
+
+# Set Zsh configuration directory.
+export ZDOTDIR="${HOME}/.config/zsh"
+
+## Colorize output.
+# shellcheck disable=SC2034
+red="\033[91m"
+# shellcheck disable=SC2034
+green="\033[92m"
+# shellcheck disable=SC2034
+blue="\033[94m"
+# shellcheck disable=SC2034
+yellow="\033[93m"
+# shellcheck disable=SC2034
+white="\033[97m"
+# shellcheck disable=SC2034
+no_color="\033[0m"
+
+
+print_header() {
+    echo -e "${blue}
+       _     _   ___ _ _
+     _| |___| |_|  _|_| |___ ___
+   _| . | . |  _|  _| | | -_|_ -|
+  |_|___|___|_| |_| |_|_|___|___|${yellow}
+  BOOTSTRAP SCRiPT${white}
+  ${git_url}${git_repo}${no_color}
+" >&1
+}
+
+print_footer() {
+    echo -e "${blue}
+  Bootstrap of dotfiles completed!${yellow}
+  Log out${blue} and${yellow} login${blue} to apply changes!${white}
+  See README for more information;
+  ${git_url}${git_repo}/.github/README.md${no_color}
+" >&1
+}
+
+print_msg() {
+    echo -e "${green}=>${no_color}${white}" "${@}" "${no_color}" >&1
+}
+
+print_error() {
+    echo -e "${red}=> ERROR:${no_color}${white}" "${@}" "${no_color}" >&2
+}
+
+install_prezto() {
+	if [ ! -d ${ZDOTDIR:-$HOME}/.zprezto/ ]; then
+		print_msg "Installing Prezto..."
+		git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+	else
+		print_msg "Updating Prezto..."
+		zprezto-update
+	fi	
+}
+
+install_shell_extensions() {
+	print_msg "Installing shell extensions"
+	curl -sfL https://direnv.net/install.sh | bash
+	curl -sS https://webinstall.dev/zoxide | bash
+	bash <(curl https://raw.githubusercontent.com/ellie/atuin/main/install.sh)
+	git-force-clone https://github.com/junegunn/fzf.git ${ZDOTDIR:-$HOME}/.fzf && ${ZDOTDIR:-$HOME}/.fzf/install --no-update-rc --completion --key-bindings
+}
+
+bootstrap_zsh() {
+    print_msg "Bootstrapping Zsh..."
+    hash zsh 2>/dev/null || {
+		echo "Installing Zsh."
+		sudo apt install zsh -y
+	}
+	install_prezto
+	install_shell_extensions
+	# Copy default Zsh configurations files from prezto.
+	for file in "zlogin" "zlogout" "zprofile" "zshenv" ; do
+		cp -f ${ZDOTDIR:-$HOME}/.zprezto/runcoms/${file} ${ZDOTDIR:-$HOME}/
+    done
+	 
+	print_msg "Setting up Zsh configurations files..."
+    # Array for Zsh configuration directory/files.
+    zsh_dotfiles=("zlogin" "zlogout" "zprofile" "zshenv" "zshrc")
+    # Delete default Zsh configuration files if present.
+    for file in "${zsh_dotfiles[@]}"; do
+        [ -e "${HOME}/.${file}" ] && rm -rf "${HOME:?}/.${file}" >/dev/null 2>&1
+    
+	    # Create symlinks to Zsh configuration files.
+	    ln -sf "${ZDOTDIR}/${file}" "${ZDOTDIR}/.${file}"
+    done
+    print_msg "Set Zsh as default shell..."
+    # Set default shell to Zsh.
+    sudo chsh -s "$(command -v zsh)"
+    print_msg "Adding system-wide Zsh configuration options..."
+    # Set path to Zsh configuration files (system-wide configuration). We want
+    # to do this to avoid as many dotfiles as possible in user home directory.
+    # shellcheck disable=SC2016
+    echo 'export ZDOTDIR="${HOME}/.config/zsh"' | \
+    sudo tee --append /etc/zsh/zshenv >/dev/null 2>&1
+}
+
+setup_git() {
+	git config --global user.name "Shrijit Singh"
+	git config --global user.email "shrijitsingh99@gmail.com"
+	if [ "$system_type" = "Darwin" ]; then  
+		brew install git-extras
+	else
+		sudo apt install git-extras -y
+	fi
+	if ! ls ${HOME}/.ssh | grep -q id_ed25519 ; then
+		print_msg "Generating SSH key..." 
+		ssh-keygen -t ed25519 -C "$(git config user.email)"
+	fi
+}
+
+update_yadm_repo() {
+    print_msg "Updating the yadm repo origin URL..."
+    yadm remote set-url origin "git@${git_host}:${git_user}/${git_repo}.git"
+}
+
+print_msg "Detected system type: ${system_type}"
+
+print_header
+setup_git
+bootstrap_zsh
+update_yadm_repo
+print_footer
