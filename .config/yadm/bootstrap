@@ -90,13 +90,17 @@ setup_zsh_configs() {
 	# TODO: Loop ad set all config variable automatically
 	echo -e "export CONFIG_ROS_DISTRO=${CONFIG_ROS_DISTRO}" >> ${CONFIG_FILE}
 
+	# Use zoxide instead of cd
+	echo -e "alias cd='z'" >> ${CONFIG_FILE}		
+
 	# Fix bat name clash
 	if [ "$system_type" = "Linux" ]; then  
 		mkdir -p ~/.local/bin
 		ln -s /usr/bin/batcat ~/.local/bin/bat
-		echo -e "alias cat='bat'" >> ${CONFIG_FILE}		
 	fi
+	echo -e "alias cat='bat'" >> ${CONFIG_FILE}		
 
+	# To show file previews using bat in fzf
 	echo -e "export FZF_DEFAULT_OPTS=\"--preview 'bat --color=always --style=numbers --line-range=:500 {}'\"" >> ${CONFIG_FILE}
 
 	CUSTOM_ZSHRC="${ZDOTDIR:-$HOME}/custom_zshrc"
@@ -167,3 +171,6 @@ bootstrap_zsh
 setup_zsh_configs
 update_yadm_repo
 print_footer
+
+# Reload shell with changes
+exec zsh
