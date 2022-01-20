@@ -4,7 +4,7 @@
 
 # Variables for dotfiles repo
 git_host="github.com"
-git_user="shrijitsingh99"
+git_user="spraybot"
 git_repo="dotfiles"
 git_url="https://${git_host}/${git_user}/"
 
@@ -144,8 +144,8 @@ bootstrap_zsh() {
 }
 
 setup_git() {
-	git config --global user.name "Shrijit Singh"
-	git config --global user.email "shrijitsingh99@gmail.com"
+	# git config --global user.name "Shrijit Singh"
+	# git config --global user.email "shrijitsingh99@gmail.com"
 	git config --global core.excludesfile ${HOME}/.config/git/.gitignore
 	if [ "$system_type" = "Darwin" ]; then  
 		brew install git-extras
