@@ -14,8 +14,8 @@ export HUSKY_LOGITECH=1
 export HUSKY_JOY_DEVICE="/dev/input/f710"
 
 # base_link -> top_plate_rear_link
-# Translation: [-0.285, 0.000, 0.251]
-export HUSKY_IMU_XYZ="-0.135 0.0 0.251"
+# Translation: [-0.331, 0.000, 0.232]
+export HUSKY_IMU_XYZ="0.112 0.0 0.458"
 export HUSKY_IMU_RPY="-3.14 0.0 0.0"
 export HUSKY_LARGE_TOP_PLATE="true"
 
