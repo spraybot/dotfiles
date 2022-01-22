@@ -9,10 +9,6 @@ else
     export FASTRTPS_DEFAULT_PROFILES_FILE="/home/${USER}/.config/fastdds/spraybot_client_profile.xml"
 fi
 
-# Needs to be set if connecting to another remote server
-# https://fast-dds.docs.eprosima.com/en/latest/fastdds/env_vars/env_vars.html
-# export ROS_DISCOVERY_SERVER="192.168.0.5:56542"
-
 # ROS1 Husky Config
 export HUSKY_LOGITECH=1
 export HUSKY_JOY_DEVICE="/dev/input/f710"
@@ -21,6 +17,7 @@ export HUSKY_JOY_DEVICE="/dev/input/f710"
 # Translation: [-0.285, 0.000, 0.251]
 export HUSKY_IMU_XYZ="-0.135 0.0 0.251"
 export HUSKY_IMU_RPY="-3.14 0.0 0.0"
+export HUSKY_LARGE_TOP_PLATE="true"
 
 # Spraybot
 export SPRAYBOT_IP="192.168.0.5"
