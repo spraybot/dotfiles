@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- https://fast-dds.docs.eprosima.com/en/latest/fastdds/use_cases/wifi/discovery_server_use_case.html -->
+<profiles xmlns="http://www.eprosima.com/XMLSchemas/fastRTPS_Profiles">
+    <participant profile_name="UDP SERVER" is_default_profile="true">
+        <rtps>
+            <builtin>
+                <discovery_config>
+                    <discoveryProtocol>SERVER</discoveryProtocol>
+                </discovery_config>
+                <metatrafficUnicastLocatorList>
+                    <locator>
+                        <udpv4>
+                            <address>192.168.0.5</address>
+                            <port>56542</port>
+                        </udpv4>
+                    </locator>
+                </metatrafficUnicastLocatorList>
+            </builtin>
+            <prefix>72.61.73.70.66.61.72.6d.74.65.73.74</prefix>
+            
+            <!-- 
+                sendSocketBufferSize: sudo sysctl -a | grep net.core.wmem_max
+                listenSocketBufferSize: sudo sysctl -a | grep net.core.rmem_max
+                 https://fast-dds.docs.eprosima.com/en/latest/fastdds/use_cases/large_data/large_data.html
+            -->-->
+            <sendSocketBufferSize>212992</sendSocketBufferSize>
+            <listenSocketBufferSize>8388608</listenSocketBufferSize>
+        </rtps>
+    </participant>
+</profiles>
