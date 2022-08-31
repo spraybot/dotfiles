@@ -1,12 +1,12 @@
 # Device specific zshrc file (Not to be tracked on git)
 
 # FastDDS Config
-export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
 if [[ "${USER}" == "spraybot" ]]; then
-    export FASTRTPS_DEFAULT_PROFILES_FILE="/home/${USER}/.config/fastdds/spraybot_server_profile.xml"
+    export CYCLONEDDS_URI="/home/${USER}/.config/dds/spraybot.xml"
 else
-    export FASTRTPS_DEFAULT_PROFILES_FILE="/home/${USER}/.config/fastdds/spraybot_client_profile.xml"
+    export CYCLONEDDS_URI="/home/${USER}/.config/dds/dev.xml"
 fi
 
 # ROS1 Husky Config
@@ -29,3 +29,5 @@ alias ssh-spraybot="ssh -X spraybot@${SPRAYBOT_IP}"
 alias spraybot2local="rsync -r -t -v --progress -u -z -b -s spraybot@${SPRAYBOT_IP}:/home/spraybot/spraybot_ws/src/ /home/${USER}/remote_spraybot_ws/src/"
 # local2spraybot
 alias local2spraybot="rsync -r -t -v --progress -u -z -b -s /home/${USER}/remote_spraybot_ws/src/ spraybot@${SPRAYBOT_IP}:/home/spraybot/spraybot_ws/src/"
+
+export ROS_DOMAIN_ID=0
