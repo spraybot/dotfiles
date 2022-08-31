@@ -31,3 +31,4 @@ alias spraybot2local="rsync -r -t -v --progress -u -z -b -s spraybot@${SPRAYBOT_
 alias local2spraybot="rsync -r -t -v --progress -u -z -b -s /home/${USER}/remote_spraybot_ws/src/ spraybot@${SPRAYBOT_IP}:/home/spraybot/spraybot_ws/src/"
 
 export ROS_DOMAIN_ID=0
+export GAZEBO_RESOURCE_PATH=/usr/share/gazebo-11
