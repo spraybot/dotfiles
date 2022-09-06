@@ -87,6 +87,11 @@ install_shell_extensions() {
 install_ros_extensions() {
 	if [ "$system_type" = "Linux" ]; then  
 		pip3 install --user git+https://github.com/eduidl/rtui.git
+
+		# Instal zenoh-plugin-dds
+		sudo apt install llvm-dev libclang-dev -y
+		(cd /opt && git clone https://github.com/eclipse-zenoh/zenoh-plugin-dds.git && cd zenoh-plugin-dds \
+		 && cargo build --release -p zenoh-bridge-dds && cargo install --path zeboh-bridge-dds)
 	fi
 }
 
@@ -123,6 +128,12 @@ bootstrap_zsh() {
 	}
 	install_prezto
 	install_shell_extensions
+
+	rustc --version
+	if [ $? -ne 0 ]; then
+    	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	fi
+
 	install_ros_extensions
 	# Copy default Zsh configurations files from prezto.
 	for file in "zlogin" "zlogout" "zprofile" "zshenv" ; do
