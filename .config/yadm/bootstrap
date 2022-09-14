@@ -9,7 +9,7 @@ git_repo="dotfiles"
 git_url="https://${git_host}/${git_user}/"
 
 # Config environment variables
-CONFIG_ROS_DISTRO="galactic"
+CONFIG_ROS_DISTRO="humble"
 
 # Set system type
 system_type=$(uname -s)
@@ -72,15 +72,14 @@ install_prezto() {
 
 install_shell_extensions() {
 	print_msg "Installing shell extensions"
-	curl -sfL https://direnv.net/install.sh | bash
 	curl -sS https://webinstall.dev/zoxide | bash
 	bash <(curl https://raw.githubusercontent.com/ellie/atuin/main/install.sh)
 	git-force-clone https://github.com/junegunn/fzf.git ${ZDOTDIR:-$HOME}/.fzf && ${ZDOTDIR:-$HOME}/.fzf/install --no-update-rc --completion --key-bindings
 
 	if [ "$system_type" = "Darwin" ]; then  
-		brew install bat htop thefuck
+		brew install bat htop thefuck direnv
 	else
-		sudo apt install bat htop thefuck -y
+		sudo apt install bat htop thefuck direnv -y
 	fi
 }
 
