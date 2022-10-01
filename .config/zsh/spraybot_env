@@ -1,24 +1,31 @@
 # FastDDS Config
-export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
-if [[ "${USER}" == "spraybot" ]]; then
-    export CYCLONEDDS_URI="/home/${USER}/.config/dds/spraybot.xml"
-else
-    export CYCLONEDDS_URI="/home/${USER}/.config/dds/dev.xml"
-fi
+CYCLONEDDS_URI="/home/spraybot/.config/dds/spraybot.xml"
 
 # ROS
-export ROS_DOMAIN_ID=0
+ROS_DOMAIN_ID=0
+ROS_LOCALHOST_ONLY=1
 
 # Gazebo
-export GAZEBO_RESOURCE_PATH=/usr/share/gazebo-11
+GAZEBO_RESOURCE_PATH=/usr/share/gazebo-11
 
 # Husky Config
-export HUSKY_LOGITECH=1
-export HUSKY_JOY_DEVICE="/dev/input/f710"
+HUSKY_LOGITECH=1
+HUSKY_JOY_DEVICE="/dev/input/f710"
 
 # base_link -> top_plate_rear_link
 # Translation: [-0.331, 0.000, 0.232]
-export HUSKY_IMU_XYZ="0.112 0.0 0.458"
-export HUSKY_IMU_RPY="-3.14 0.0 0.0"
-export HUSKY_LARGE_TOP_PLATE="true"
+HUSKY_IMU_XYZ="0.686 0.1375 0.149"
+HUSKY_IMU_RPY="-3.14 0.0 0.0"
+HUSKY_LARGE_TOP_PLATE="true"
+
+export RMW_IMPLEMENTATION
+export CYCLONEDDS_URI
+export ROS_DOMAIN_ID
+export GAZEBO_RESOURCE_PATH
+export HUSKY_LOGITECH
+export HUSKY_JOY_DEVICE
+export HUSKY_IMU_XYZ
+export HUSKY_IMU_RPY
+export HUSKY_LARGE_TOP_PLATE
