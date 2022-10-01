@@ -4,7 +4,7 @@
 
 # Variables for dotfiles repo
 git_host="github.com"
-git_user="shrijit"
+git_user="spraybot"
 git_repo="dotfiles"
 git_url="https://${git_host}/${git_user}/"
 
