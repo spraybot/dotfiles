@@ -72,15 +72,16 @@ install_prezto() {
 
 install_shell_extensions() {
 	print_msg "Installing shell extensions"
-	curl -sS https://webinstall.dev/zoxide | bash
-	bash <(curl https://raw.githubusercontent.com/ellie/atuin/main/install.sh)
-	git-force-clone https://github.com/junegunn/fzf.git ${ZDOTDIR:-$HOME}/.fzf && ${ZDOTDIR:-$HOME}/.fzf/install --no-update-rc --completion --key-bindings
-
 	if [ "$system_type" = "Darwin" ]; then  
 		brew install bat htop thefuck direnv
 	else
+		# Dependencies
+		sudo apt install curl python3-argcomplete python3-pip -y
 		sudo apt install bat htop thefuck direnv -y
 	fi
+	curl -sS https://webinstall.dev/zoxide | bash
+	bash <(curl https://raw.githubusercontent.com/ellie/atuin/main/install.sh)
+	git-force-clone https://github.com/junegunn/fzf.git ${ZDOTDIR:-$HOME}/.fzf && ${ZDOTDIR:-$HOME}/.fzf/install --no-update-rc --completion --key-bindings
 }
 
 install_ros_extensions() {
@@ -115,6 +116,10 @@ setup_zsh_configs() {
 	if [ ! -f "${CUSTOM_ZSHRC}" ]; then
     	echo -e "# Device specific zshrc file (Not to be tracked on git)" >${CUSTOM_ZSHRC}
 	fi
+}
+
+setup_system() {
+	sudo chown -R $USER:$USER /opt
 }
 
 bootstrap_zsh() {
@@ -178,6 +183,7 @@ print_header
 setup_git
 bootstrap_zsh
 setup_zsh_configs
+setup_system
 update_yadm_repo
 print_footer
 
