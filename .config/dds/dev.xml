@@ -14,5 +14,9 @@
       </Peers>
       <MaxAutoParticipantIndex>120</MaxAutoParticipantIndex>
     </Discovery>
+    <!-- https://docs.ros.org/en/humble/How-To-Guides/DDS-tuning.html -->
+    <Internal>
+            <SocketReceiveBufferSize min="10MB"/>
+    </Internal>
   </Domain>
 </CycloneDDS>

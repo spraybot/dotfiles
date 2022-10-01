@@ -5,7 +5,7 @@ CYCLONEDDS_URI="/home/spraybot/.config/dds/spraybot.xml"
 
 # ROS
 ROS_DOMAIN_ID=0
-ROS_LOCALHOST_ONLY=1
+ROS_LOCALHOST_ONLY=0
 
 # Gazebo
 GAZEBO_RESOURCE_PATH=/usr/share/gazebo-11

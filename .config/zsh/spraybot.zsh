@@ -3,6 +3,10 @@
 # Source environment variables
 source ${ZDOTDIR:-$HOME}/spraybot_env
 
+if [[ "${USER}" != "spraybot" ]]; then
+    export CYCLONEDDS_URI="/home/${USER}/.config/dds/dev.xml"
+fi
+
 # Spraybot
 export SPRAYBOT_IP="192.168.0.5"
 
