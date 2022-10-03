@@ -1,0 +1,38 @@
+# Node name [gzserver-1]
+regexp=\[([a-zA-Z]+([_.][a-zA-Z]+)*)\-(\d*)\]
+colors=cyan
+===
+# Node name [planner_server]
+regexp=\[([a-zA-Z]+([_.][a-zA-Z]+)*)\]
+colors="\033[38;5;123m"
+===
+regexp=\[(INFO)\]
+color=green
+===
+regexp=\[(DEBUG)\]
+colours="\033[38;5;128m"
+===
+regexp=\[(ERROR)\]
+colours=red
+===
+regexp=\[(FATAL)\]
+colours=red
+===
+regexp=\[(WARN|WARNING)\]
+colours=yellow
+===
+regexp=(?i)(error|exception)
+colours=red
+===
+# Unix Time
+regexp=\[([+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*))(?:[eE]([+-]?\d+))?\]
+colors="\033[38;5;75m"
+===
+# Path names
+regexp=/[\w/\.]+
+colour="\033[38;5;71m"
+count=more
+===
+# Disable RViz2 logs
+regexp=\[rviz2
+skip=yes

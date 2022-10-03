@@ -37,11 +37,17 @@ eval "$(atuin init zsh)"
 # thefuck - Corrects previous console commands
 eval $(thefuck --alias) 
 
+# Git alias conflicts with colorizer grc
+unalias grc
+
 # Source zsh scripts
 for conf in "${ZDOTDIR:-$HOME}/"*.zsh; do
   source "${conf}"
 done
 unset conf
+
+# Setup grc
+[[ -s "${ZDOTDIR:-$HOME}/grc.zsh" ]] && source "${ZDOTDIR:-$HOME}/grc.zsh" 
 
 # Source custom zshrc
 source ${ZDOTDIR:-$HOME}/custom_zshrc

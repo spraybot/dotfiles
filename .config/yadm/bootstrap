@@ -77,7 +77,11 @@ install_shell_extensions() {
 	else
 		# Dependencies
 		sudo apt install curl python3-argcomplete python3-pip -y
-		sudo apt install bat htop thefuck direnv -y
+		sudo apt install bat htop thefuck direnv grc -y
+
+		# Setup grc
+		rm "${HOME}/.grc"
+		ln -sf "${HOME}/.config/grc" "${HOME}/.grc"
 	fi
 	curl -sS https://webinstall.dev/zoxide | bash
 	bash <(curl https://raw.githubusercontent.com/ellie/atuin/main/install.sh)
