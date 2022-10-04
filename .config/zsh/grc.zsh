@@ -80,7 +80,6 @@ cmds=(
   vmstat
   wdiff
   whois
-  ros2
 )
 
 # Set alias for available commands.

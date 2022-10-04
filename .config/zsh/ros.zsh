@@ -7,3 +7,5 @@ if [[ $OSTYPE = linux* ]]; then
 	eval "$(register-python-argcomplete3 colcon)"
 
 fi
+
+alias color="grcat conf.ros2"
