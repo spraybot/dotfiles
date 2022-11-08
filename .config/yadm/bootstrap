@@ -77,7 +77,7 @@ install_shell_extensions() {
 	else
 		# Dependencies
 		sudo apt install curl python3-argcomplete python3-pip -y
-		sudo apt install bat htop thefuck direnv grc -y
+		sudo apt install bat htop thefuck direnv grc magic-wormhole -y
 
 		# Setup grc
 		rm "${HOME}/.grc"

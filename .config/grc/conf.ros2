@@ -21,7 +21,7 @@ colours=red
 regexp=\[(WARN|WARNING)\]
 colours=yellow
 ===
-regexp=(?i)(error|exception)
+regexp=(?i)(error|exception|fail|failed)
 colours=red
 ===
 # Unix Time
